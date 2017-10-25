@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+ 
+ <bean id="us" class="com.service.Userservice"></bean>
+ <!-- 切面的定义 -->
+ <bean id="aoplog" class="com.entity.Aoplog"></bean>
+ <aop:config>
+ <!-- 设置切入点 -->
+ <aop:pointcut expression="execution(* com.service.*.*(..))" 
+  id="mypointcut"/>
+ <aop:aspect ref="aoplog">
+ <!-- 切面中的方法 -->
+ <aop:before method="before" pointcut-ref="mypointcut"></aop:before>
+ <aop:after method="after" pointcut-ref="mypointcut"></aop:after>
+ </aop:aspect>
+ </aop:config>
+</beans>

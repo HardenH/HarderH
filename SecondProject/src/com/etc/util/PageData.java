@@ -1,18 +1,18 @@
-package com.etc.cms.util;
+package com.etc.util;
 
 import java.util.List;
 
 /**
- * ·ÖÒ³Êý¾ÝÀà
+ * ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 public class PageData<T> {
-	private List<T> data; // ²éÕÒµÄÊý¾Ý
+	private List<T> data; // ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½
 
-	private Integer total; // ×Ü¼ÇÂ¼Êý
+	private Integer total; // ï¿½Ü¼ï¿½Â¼ï¿½ï¿½
 
-	private Integer pageSize;// Ã¿Ò³¼¸ÐÐ£¬Ã¿Ò³µÄ¼ÇÂ¼Êý
+	private Integer pageSize;// Ã¿Ò³ï¿½ï¿½ï¿½Ð£ï¿½Ã¿Ò³ï¿½Ä¼ï¿½Â¼ï¿½ï¿½
 
-	private Integer page;// Ò³Êý(Ò³Âë)
+	private Integer page;// Ò³ï¿½ï¿½(Ò³ï¿½ï¿½)
 	
 	private Integer totalPage;
 
@@ -64,12 +64,12 @@ public class PageData<T> {
 	}
 
 	/**
-	 * ×Ô¶¨Òå·½·¨gettotalPage »ñÈ¡×ÜÒ³Êý
+	 * ï¿½Ô¶ï¿½ï¿½å·½ï¿½ï¿½gettotalPage ï¿½ï¿½È¡ï¿½ï¿½Ò³ï¿½ï¿½
 	 * 
 	 * @return
 	 */
 	public int getTotalPage() {
-		//  15Ìõ   Ã¿Ò³ÏÔÊ¾4Ìõ
+		//  15ï¿½ï¿½   Ã¿Ò³ï¿½ï¿½Ê¾4ï¿½ï¿½
 		int num = total / pageSize; 
 		if (total % pageSize != 0)
 			num++;

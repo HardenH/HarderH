@@ -2,41 +2,309 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
+<%
+	String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getLocalPort()
+			+ request.getContextPath() + "/";
+	pageContext.setAttribute("path", path);
+%>
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
 
-		<title>个人资料</title>
-
-		<link href="../AmazeUI-2.4.2/assets/css/admin2.css" rel="stylesheet" type="text/css">
+		<title>商品管理</title>
+<link href="../AmazeUI-2.4.2/assets/css/admin2.css" rel="stylesheet" type="text/css">
 		<link href="../AmazeUI-2.4.2/assets/css/amazeui2.css" rel="stylesheet" type="text/css">
 
-		<link href="../css/personal2.css" rel="stylesheet" type="text/css">
-		<link href="../css/infstyle2.css" rel="stylesheet" type="text/css">
+		<link href="../css/goodsmanage.css" rel="stylesheet" type="text/css">
+		<link href="../css/orstyle.css" rel="stylesheet" type="text/css">
+
 		<script src="../AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
-		<script src="../AmazeUI-2.4.2/assets/js/amazeui.js"></script>	
-		<script src="../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
-		<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-		<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-theme.css" />
-		
-		<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<style type="text/css">
-		#goodsname{  height: 50px;width: 500px;border-radius: 3px;}
-        #goodscount{  height: 50px;width: 500px;border-radius: 3px;}     
-        #goodsprice{  height: 50px;width: 500px;border-radius: 3px;}     
-        #goodstype{  height: 50px;width: 500px;border-radius: 3px;}    
-        #goodsdetail{  height: 50px;width: 500px;border-radius: 3px;}   
-        #goodsstate{  height: 50px;width: 500px;border-radius: 3px;}
-        #issaw{  height: 50px;width: 500px;border-radius: 3px;}
-        #js{margin-left: 670px; }
-        
-	</style>
+		<script src="../AmazeUI-2.4.2/assets/js/amazeui.js"></script>
 		
 		
 	</head>
+	<style>
+.form-group {
+	margin-bottom: 20px;
+}
+/* 上传文件样式 */
+#fileInput {
+    padding: 4px 10px;
+    height: 35px;
+    line-height: 25px;
+    position: relative;
+    cursor: pointer;
+    color: #888;
+    background: #fafafa;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    overflow: hidden;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1
+}
+
+#fileInput  input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer
+}
+
+#fileInput:hover {
+    color: #444;
+    background: #eee;
+    border-color: #ccc;
+    text-decoration: none
+}
+
+.form-group #img{
+height:80px;
+width:80px;
+}
+.item-pic .J_MakePoint .img{
+width:100%
+}
+</style>
+<script type="text/javascript">
+$(function(){
+	var state="已上架";
+	var btnstr="一键下架";
+	$(".order-content").remove();
+	$.get("${path}Goodsservlet",{"op":"searchbystoreid","storeid":"1"},function(mydata,status){
+		$.each(mydata.data,function(index,data){
+			if(data.GOODSSTATE==1){
+				state="已上架";
+				btnstr="一键下架";
+			}
+			else{
+				state="已下架";
+				btnstr="一键上架";
+			}
+			$(".order-list").append("<div class='order-content'><div class='order-left'><ul class='item-list'><li class='td td-item'>"
+					+"<div class='item-pic'><a href='#' class='J_MakePoint'><img class='img' src='"+data.GOODSIMG+"' class='itempic J_ItemImg'>"
+					+"</a></div><div class='item-info'><div class='item-basic-info'><a href='#'><p>"+data.GOODSNAME+"</p></a></div>"
+					+"</div></li><li class='td td-price'><div class='item-price'>"+data.GOODSID+"</div></li><li class='td td-number'>"
+					+"<div class='item-number'>"+data.GOODSCOUNT+"</div></li><li class='td td-operation'><div class='item-operation'>"+data.GOODSPRICE+""
+					+"</div></li></ul></div><div class='order-right'><li class='td td-status'><div class='item-status'>"
+					+"<p class='Mystatus'>"+state+"</p></div></li><div class='move-right'>"
+					+"<li class='td td-change'><div ><button class='am-btn am-btn-danger anniu' value='"+data.GOODSID+"'>一键删除<button></div>"
+					+"</li></div></div></div>");
+		})
+	})
+	
+	
+	
+	//点击已上架
+	$("#onsale").on("click",function(){
+		$(".order-content").remove();
+		$.get("${path}Goodsservlet",{"op":"searchbyidandstate","storeid":"1","goodsstate":"1"},function(mydata,status){
+			$.each(mydata.data,function(index,data){
+				$(".order-list").append("<div class='order-content'><div class='order-left'><ul class='item-list'><li class='td td-item'>"
+						+"<div class='item-pic'><a href='#' class='J_MakePoint'><img class='img' src='"+data.GOODSIMG+"' class='itempic J_ItemImg'>"
+						+"</a></div><div class='item-info'><div class='item-basic-info'><a href='#'><p>"+data.GOODSNAME+"</p></a></div>"
+						+"</div></li><li class='td td-price'><div class='item-price'>"+data.GOODSID+"</div></li><li class='td td-number'>"
+						+"<div class='item-number'>"+data.GOODSCOUNT+"</div></li><li class='td td-operation'><div class='item-operation'>"+data.GOODSPRICE+""
+						+"</div></li></ul></div><div class='order-right'><li class='td td-status'><div class='item-status'><p class='Mystatus'>已上架</p></div></li>"
+						+"<div class='move-right'><li class='td td-amount'><div class='item-amount'><input type='hidden' class='state' value='"+data.GOODSSTATE+"'/><button class='am-btn am-btn-danger change' value='"+data.GOODSID+"'>一键下架<button>"
+						+"</div></li><li class='td td-change'><div ><button class='am-btn am-btn-danger anniu' value='"+data.GOODSID+"'>一键删除<button></div>"
+						+"</li></div></div></div>");
+			})
+		})
+	})
+	//点击已下架
+	$("#soldout").on("click",function(){
+		$(".order-content").remove();
+		$.get("${path}Goodsservlet",{"op":"searchbyidandstate","storeid":"1","goodsstate":"0"},function(mydata,status){
+			$.each(mydata.data,function(index,data){
+				$(".order-list").append("<div class='order-content'><div class='order-left'><ul class='item-list'><li class='td td-item'>"
+						+"<div class='item-pic'><a href='#' class='J_MakePoint'><img class='img' src='"+data.GOODSIMG+"' class='itempic J_ItemImg'>"
+						+"</a></div><div class='item-info'><div class='item-basic-info'><a href='#'><p>"+data.GOODSNAME+"</p></a></div>"
+						+"</div></li><li class='td td-price'><div class='item-price'>"+data.GOODSID+"</div></li><li class='td td-number'>"
+						+"<div class='item-number'>"+data.GOODSCOUNT+"</div></li><li class='td td-operation'><div class='item-operation'>"+data.GOODSPRICE+""
+						+"</div></li></ul></div><div class='order-right'><li class='td td-status'><div class='item-status'><p class='Mystatus'>已下架</p></div></li>"
+						+"<div class='move-right'><li class='td td-amount'><div class='item-amount'><input type='hidden' class='state' value='"+data.GOODSSTATE+"'/><button class='am-btn am-btn-danger change' value='"+data.GOODSID+"'>一键上架<button>"
+						+"</div></li><li class='td td-change'><div ><button class='am-btn am-btn-danger anniu' value='"+data.GOODSID+"'>一键删除<button></div>"
+						+"</li></div></div></div>");
+			})
+		})
+	})
+	//点击已删除商品
+	$("#delete").on("click",function(){
+		$(".order-content").remove();
+		$.get("${path}Goodsservlet",{"op":"deletegoods","storeid":"1"},function(mydata,status){
+			$.each(mydata.data,function(index,data){
+				$(".order-list").append("<div class='order-content'><div class='order-left'><ul class='item-list'><li class='td td-item'>"
+						+"<div class='item-pic'><a href='#' class='J_MakePoint'><img class='img' src='"+data.GOODSIMG+"' class='itempic J_ItemImg'>"
+						+"</a></div><div class='item-info'><div class='item-basic-info'><a href='#'><p>"+data.GOODSNAME+"</p></a></div>"
+						+"</div></li><li class='td td-price'><div class='item-price'>"+data.GOODSID+"</div></li><li class='td td-number'>"
+						+"<div class='item-number'>"+data.GOODSCOUNT+"</div></li><li class='td td-operation'><div class='item-operation'>"+data.GOODSPRICE+""
+						+"</div></li></ul></div><div class='order-right'><div class='move-right'><li class='td td-status'><div class='item-status'>"
+						+"<p class='Mystatus'>已删除</p></div></li><li class='td td-change'>"
+						+"</li></div></div></div>");
+			})
+		})
+	})
+	
+	//点击全部商品
+	$("#getall").on("click",function(){
+		var state="已上架";
+		$(".order-content").remove();
+		$.get("${path}Goodsservlet",{"op":"searchbystoreid","storeid":"1"},function(mydata,status){
+			$.each(mydata.data,function(index,data){
+				if(data.GOODSSTATE==1){
+					state="已上架";
+					btnstr="一键下架";
+				}
+				else{
+					state="已下架";
+					btnstr="一键上架";
+				}
+				$(".order-list").append("<div class='order-content'><div class='order-left'><ul class='item-list'><li class='td td-item'>"
+						+"<div class='item-pic'><a href='#' class='J_MakePoint'><img class='img' src='"+data.GOODSIMG+"' class='itempic J_ItemImg'>"
+						+"</a></div><div class='item-info'><div class='item-basic-info'><a href='#'><p>"+data.GOODSNAME+"</p></a></div>"
+						+"</div></li><li class='td td-price'><div class='item-price'>"+data.GOODSID+"</div></li><li class='td td-number'>"
+						+"<div class='item-number'>"+data.GOODSCOUNT+"</div></li><li class='td td-operation'><div class='item-operation'>"+data.GOODSPRICE+""
+						+"</div></li></ul></div><div class='order-right'><li class='td td-status'><div class='item-status'>"
+						+"<p class='Mystatus'>"+state+"</p></div></li><div class='move-right'>"
+						+"<li class='td td-change'><div ><button class='am-btn am-btn-danger anniu' value='"+data.GOODSID+"'>一键删除<button></div>"
+						+"</li></div></div></div>");
+			})
+		})
+	})
+})
+/* 添加图片预览显示 */
+	function showPicture () {
+		  var r= new FileReader();
+		  f=document.getElementById('goodsImg').files[0];
+		   
+		  r.readAsDataURL(f);
+		  r.onload=function (e) {
+		    document.getElementById('img').src=this.result;
+		  };
+		}
+	
+	/* 修改图片预览 */
+	function changePicture () {
+		  var r= new FileReader();
+		  f=document.getElementById('changeImg').files[0];
+		   
+		  r.readAsDataURL(f);
+		  r.onload=function (e) {
+		    document.getElementById('newImg').src=this.result;
+		  };
+		}
+</script>
+<script type="text/javascript">
+$(function(){
+	//点击一键删除按钮
+	$(document).on("click",'.anniu',function(){
+		var goodsid = $(this).val();
+		alert(goodsid);
+		$(".item-list").remove();
+		$.get("${path}Goodsservlet",{"op":"delete","goodsid":goodsid,"storeid":"1"},function(){
+			alert(22)
+			$.each(mydata.data,function(index,data){
+				if(data.GOODSSTATE==1){
+					state="已上架";
+					btnstr="一键下架";
+				}
+				else{
+					state="已下架";
+					btnstr="一键上架";
+				}
+				$(".order-list").append("<div class='order-content'><div class='order-left'><ul class='item-list'><li class='td td-item'>"
+						+"<div class='item-pic'><a href='#' class='J_MakePoint'><img class='img' src='"+data.GOODSIMG+"' class='itempic J_ItemImg'>"
+						+"</a></div><div class='item-info'><div class='item-basic-info'><a href='#'><p>"+data.GOODSNAME+"</p></a></div>"
+						+"</div></li><li class='td td-price'><div class='item-price'>"+data.GOODSID+"</div></li><li class='td td-number'>"
+						+"<div class='item-number'>"+data.GOODSCOUNT+"</div></li><li class='td td-operation'><div class='item-operation'>"+data.GOODSPRICE+""
+						+"</div></li></ul></div><div class='order-right'><li class='td td-status'><div class='item-status'>"
+						+"<p class='Mystatus'>"+state+"</p></div></li><div class='move-right'><li class='td td-amount'><div class='item-amount'><button class='am-btn am-btn-danger change' value='"+data.GOODSID+"'>"+btnstr+"<button>"
+						+"</div></li><li class='td td-change'><div ><button class='am-btn am-btn-danger anniu' value='"+data.GOODSID+"'>一键删除<button></div>"
+						+"</li></div></div></div>");
+			})
+		})
+	})
+	//点击一键上下架
+	$(document).on("click",'.change',function(){
+		var goodsid = $(this).val();
+		var state = $(".state").val();
+		alert(state)
+		alert(goodsid);
+		$(".item-list").remove();
+		$.get("${path}Goodsservlet",{"op":"change","goodsid":goodsid,"storeid":"1","state":state},function(mydata,status){
+			$.each(mydata.data,function(index,data){
+			if(data.GOODSSTATE==1){
+				state="已上架";
+				btnstr="一键下架";
+			}
+			else{
+				state="已下架";
+				btnstr="一键上架";
+			}
+			$(".order-list").append("<div class='order-content'><div class='order-left'><ul class='item-list'><li class='td td-item'>"
+					+"<div class='item-pic'><a href='#' class='J_MakePoint'><img class='img' src='"+data.GOODSIMG+"' class='itempic J_ItemImg'>"
+					+"</a></div><div class='item-info'><div class='item-basic-info'><a href='#'><p>"+data.GOODSNAME+"</p></a></div>"
+					+"</div></li><li class='td td-price'><div class='item-price'>"+data.GOODSID+"</div></li><li class='td td-number'>"
+					+"<div class='item-number'>"+data.GOODSCOUNT+"</div></li><li class='td td-operation'><div class='item-operation'>"+data.GOODSPRICE+""
+					+"</div></li></ul></div><div class='order-right'><li class='td td-status'><div class='item-status'>"
+					+"<p class='Mystatus'>"+state+"</p></div></li><div class='move-right'><li class='td td-amount'><div class='item-amount'><input type='hidden' class='state' value='"+data.GOODSSTATE+"'/><button class='am-btn am-btn-danger change' value='"+data.GOODSID+"'>"+btnstr+"<button>"
+					+"</div></li><li class='td td-change'><div ><button class='am-btn am-btn-danger anniu' value='"+data.GOODSID+"'>一键删除<button></div>"
+					+"</li></div></div></div>");
+			
+		})
+	})
+})
+})
+</script>
+  <script type="text/javascript">
+        $(function () {
+           $.get("${path}Typeservlet",{"op":"graparentsname"},function(mydata,status){
+        	   var ping;
+        	   console.log(mydata);
+        	   $.each(mydata.data,function(index,data){
+        		   console.log(data.GRAPARENTSID)
+        		   ping += "<option value='" + data.GRAPARENTSID + "'>";
+                   ping += data.GRAPARENTSNAME;
+                   ping += "</option>";
+                  
+        	   })
+        	   $("#Select1").append(ping);
+           })
+        	
+            $('#Select1').change(function () {
+                //第二次选时要记得清空市和县中的内容
+                $('#Select2 option:gt(0)').remove();
+                $('#Select3 option:gt(0)').remove();
+                //在省的改变事件里绑定下一个下来列表（要失掉省的id）
+$.get("${path}Typeservlet",{"op":"parentsname","fatherid": $("#Select1 option:selected").val()},function(mydata,status){
+	 var str2;
+	 $.each(mydata.data,function(index,data){
+		 str2 += "<option value='" + data.PARENTSID + "'>";
+         str2 += data.PARENTSNAME;
+         str2 += "</option>";
+	 })
+     $('#Select2').append(str2);
+})
+            })
+            $('#Select2').change(function () {
+                $('#Select3 option:gt(0)').remove();
+                $.get("${path}Typeservlet",{"op":"smallcloth","parentsid":  $("#Select2 option:selected").val()},function(mydata,status){
+                	 var str3;
+                	 $.each(mydata.data,function(index,data){
+                		 str3 += "<option value=" + data.CHILDID + ">";
+                         str3 += data.TYPENAME;
+                         str3 += "</option>";
+                	 })
+                     $('#Select3').append(str3);
+                })
+            })
+        })
+
+    </script>
 
 	<body>
 		<!--头 -->
@@ -95,229 +363,246 @@
 			<div class="col-main">
 				<div class="main-wrap">
 
-					<div class="user-info">
+					<div class="user-order">
+
 						<!--标题 -->
 						<div class="am-cf am-padding">
-							<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">商品管理</strong></div>
-							<div id="js">
-								
-							<input type="button" class="btn-success" name="" id="" value="检索" />
-							<input type="text"   placeholder="商品检索"/>
-							</div>
+							<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">商品管理</strong> / <small>Goods</small></div>
 						</div>
 						<hr/>
 
-						
-	        
-	
-			<div class="tabbable" id="tabs-906123">
-				<ul class="nav nav-tabs">
-					<li class="active">
-						 <a href="#panel-241804" data-toggle="tab">全部</a>
-					</li>
-					<li class="">
-						 <a href="#panel-736901" data-toggle="tab">出售中</a>
-					</li>
-					<li >
-						 <a href="#panel-542397" data-toggle="tab">已售完</a>
-					</li>
-					<li >
-						 <a href="#panel-793266" data-toggle="tab">已下架</a>
-					</li>
-					<a id="modal-517176" href="#modal-container-517176" role="button" class="btn" data-toggle="modal">商品添加</a>
-			
-			<div class="modal fade" id="modal-container-517176" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="">
-							 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						<hr />
-							<p class="" id="myModalLabel">
-								商品名称：
-								<input type="text "id="goodsname"  class="" />
-							</p>
-							
-						</div>
-						<hr />
-						<div class="">
-							<p>
-						   商品数量：<input type="text" id="goodscount" />
-							</p>
-						</div>
-						<hr />
-						<div class="">
-							<p>
-							商品价格：<input type="text" id="goodsprice"/>
-							</p>
-						</div>
-						<hr />
-						<div class="">
-							<p>
-							商品类型：<select id="goodstype">
-								<option value="1">日用品</option>
-								<option value="2">食品</option>
-								
-							</select>
-							</p>
-						</div>
-					
-						<!--<div class="">
-							<p>
-							销售量：<input type="text" readonly="readonly" value="0" />
-							</p>
-						</div>-->
-						<hr />
-						<div class="">
-							<p>
-						 商品描述：<textarea class="" rows="3" id="user-intro" placeholder="商品描述详情" id="goodsdetail"></textarea>
-							</p>
-						</div>
-						<hr />
-						<div class="">
-							<p>
-							商品状态：<select id="goodsstate">
-								<option value="1">上架</option>
-								<option value="2">下架</option>
-								
-							</select>
-							</p>
-						</div>
-						<hr />
-						<div class="">
-							<p>
-							是否可见：<select id="issaw">
-								<option value="1">可见</option>
-								<option value="2">不可见</option>
-								
-							</select>
-							</p>
-						</div>
-					
-						<div class="modal-footer">
-							 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> <button type="button" class="btn btn-primary">保存</button>
-						</div>
-					</div>
-					
-				</div>
-				
-			</div>
-					
-					
-	
-				</ul>
-				
-				
-				
-				<div class="tab-content">
-					<div class="tab-pane active" id="panel-241804">
-						<p>
-						暂无商品
-						</p>
-					</div>
-					<div class="tab-pane " id="panel-736901">
-						<p>
-							csc
-						</p>
-					</div>
-					
-					<div class="tab-pane" id="panel-542397">
-						<p>
-							542397
-						</p>
-					</div>
-					<div class="tab-pane" id="panel-793266">
-						<p>
-						793266
-						</p>
-					</div>
-					
-				</div>
-			</div>
-	
-	
+						<div class="am-tabs am-tabs-d2 am-margin" data-am-tabs>
 
-					
+							<ul class="am-avg-sm-5 am-tabs-nav am-nav am-nav-tabs">
+								<li class="am-active"><a href="#tab1" id="getall">所有商品</a></li>
+								<li><a href="#tab2" id="upshelf">商品上架</a></li>
+								<li><a href="#tab3" id="onsale">已上架</a></li>
+								<li><a href="#tab4" id="soldout">已下架</a></li>
+								<li><a href="#tab5" id="delete">已删除商品</a></li>
+							</ul>
 
-						<!--个人信息 -->
-						<div class="info-main">
-							<form class="am-form am-form-horizontal">
-
-								<div class="am-form-group address">
-									<label for="user-address" class="am-form-label">收货地址</label>
-									<div class="am-form-content address">
-										<a href="address.html">
-											<p class="new-mu_l2cw">
-												<span class="province">湖北</span>省
-												<span class="city">武汉</span>市
-												<span class="dist">洪山</span>区
-												<span class="street">雄楚大道666号(中南财经政法大学)</span>
-												<span class="am-icon-angle-right"></span>
-											</p>
-										</a>
-
+							<div class="am-tabs-bd">
+								<div class="am-tab-panel am-fade am-in am-active" id="tab1">
+									<div class="order-top">
+									<div class="th th-item">
+										<td class="td-inner">商品</td>
+									</div>
+									<div class="th th-price">
+										<td class="td-inner">商品id</td>
+									</div>
+									<div class="th th-number">
+										<td class="td-inner">数量</td>
+									</div>
+									<div class="th th-operation">
+										<td class="td-inner">单价</td>
+									</div>
+									<div class="th th-status">
+										<td class="td-inner">商品状态</td>
+									</div>
+									 <div class="th th-amount">
+										<td class="td-inner">上下架操作</td>
+									</div> 
+									
+									<div class="th th-change">
+										<td class="td-inner">商品操作</td>
 									</div>
 								</div>
-								<div class="am-form-group safety">
-									<label for="user-safety" class="am-form-label">账号安全</label>
-									<div class="am-form-content safety">
-										<a href="safety.html">
 
-											<span class="am-icon-angle-right"></span>
 
-										</a>
+									<div class="order-main">
+										<div class="order-list">
+
+										</div>
 
 									</div>
+
+								</div>
+								<div class="am-tab-panel am-fade" id="tab2">
+	<form class="form-horizontal"  method="post" action="" enctype="multipart/form-data">'
+								<div class="form-group" style="text-align:center">
+							商品名：<input type="text" class="form-control" id="goodsName" name="goodsName"  style="width:300px;height:35px;"/>'
+												</div>
+								<div class="form-group" style=" margin-left:225px">
+								 商品类型： <select id="Select1">
+        <option>--请选择--</option>
+    </select>
+    <select id="Select2">
+        <option>--请选择--</option>
+    </select>
+      <select id="Select3">
+        <option>--请选择--</option>
+    </select>
+												</div>
+												<div class="form-group" style="text-align:center">
+												商品价格：<input type="text" class="form-control" id="goodsPrice" name="goodsPrice" style="width:300px ;height:35px;"/>
+												</div>
+												<div class="form-group" style="text-align:center">
+												商品描述：<textarea class="form-control" id="goodsContent"name="goodsContent" style="width:300px "></textarea>
+												</div>
+												<div class="form-group"  style="text-align:center">
+											商品库存：<input type="text" class="form-control" id="goodsStock" name="goodsStock" style="width:300px;height:35px;" />
+												</div>
+												<div class="form-group"  style="margin-left:225px">
+												上传图片：<a href="#" id="fileInput"><input type="file"  id="goodsImg" name="goodsImg" style="width:300px;height:35px;" onchange="showPicture()"/>点这里上传图片</a>
+												<img src="" id="img" width="80" height="80" style="display:inline-block;margin-left:50px; ">
+												</div>
+												<div class="form-group"  style="margin-left:225px">
+												上传详细图片：<a href="#" id="fileInput"><input type="file"  id="goodsImg" name="goodsImg" style="width:300px;height:35px;" onchange="showPicture()"/>点这里上传图片</a>
+												<img src="" id="img" width="80" height="80" style="display:inline-block;margin-left:50px; ">
+												</div>
+												
+												<div class="form-group" style="text-align:center">
+												<button type="submit" class="btn btn-success" style="width:400px height:100px">提交</button>
+												</div>
+     </form>
 								</div>
 								
+								<div class="am-tab-panel am-fade" id="tab3">
+									<div class="order-top">
+									<div class="th th-item">
+										<td class="td-inner">商品</td>
+									</div>
+									<div class="th th-price">
+										<td class="td-inner">商品id</td>
+									</div>
+									<div class="th th-number">
+										<td class="td-inner">数量</td>
+									</div>
+									<div class="th th-operation">
+										<td class="td-inner">单价</td>
+									</div>
+									<div class="th th-status">
+										<td class="td-inner">商品状态</td>
+									</div>
+									 <div class="th th-amount">
+										<td class="td-inner">上下架操作</td>
+									</div> 
+									
+									<div class="th th-change">
+										<td class="td-inner">商品操作</td>
+									</div>
+								</div>
 
-							</form>
+
+									<div class="order-main">
+										<div class="order-list">
+											
+									</div>
+								</div>
+								</div>
+								<div class="am-tab-panel am-fade" id="tab4">
+									<div class="order-top">
+									<div class="th th-item">
+										<td class="td-inner">商品</td>
+									</div>
+									<div class="th th-price">
+										<td class="td-inner">商品id</td>
+									</div>
+									<div class="th th-number">
+										<td class="td-inner">数量</td>
+									</div>
+									<div class="th th-operation">
+										<td class="td-inner">单价</td>
+									</div>
+									<div class="th th-status">
+										<td class="td-inner">商品状态</td>
+									</div>
+									 <div class="th th-amount">
+										<td class="td-inner">上下架操作</td>
+									</div> 
+									
+									<div class="th th-change">
+										<td class="td-inner">商品操作</td>
+									</div>
+								</div>
+
+								<div class="order-main">
+										<div class="order-list">
+											
+									</div>
+								</div>
+								</div>
+								<div class="am-tab-panel am-fade" id="tab5">
+									<div class="order-top">
+									<div class="th th-item">
+										<td class="td-inner">商品</td>
+									</div>
+									<div class="th th-price">
+										<td class="td-inner">商品id</td>
+									</div>
+									<div class="th th-number">
+										<td class="td-inner">数量</td>
+									</div>
+									<div class="th th-operation">
+										<td class="td-inner">单价</td>
+									</div>
+									<div class="th th-status">
+										<td class="td-inner">商品状态</td>
+									</div>
+									 <div class="th th-amount">
+										<td class="td-inner">上下架操作</td>
+									</div> 
+									
+									<div class="th th-change">
+										<td class="td-inner">商品操作</td>
+									</div>
+								</div>
+
+
+
+									<div class="order-main">
+										<div class="order-list">
+										
+
+										</div>
+
+									</div>
+
+								</div>
+
+					</div>
+				</div>
+				</div>
+				<!--//footer-->
+					<div class="footer-bottom">
+						<div class="container">
+							<p class="footer-copyright">
+								Copyright &copy; 2000-2017 HARDEN国际有限公司，保留一切权利。｜ <a
+									class="footer-beiAn" target="_blank"
+									href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502032052">京公网安备
+									11010502032052号</a>关于我们 |联系我们 |加入我们 |用户帮助 |微店联盟 |隐私声明
+							</p>
 						</div>
+						<div class="footer-i footer-mt15">
+							<p>出版物经营许可证 ｜ 互联网药品信息服务资格证书编号(京) - 非经营性-2015-0087</p>
+						</div>
+						<div class="footer-check">
+							<p class="footer-check-info check-info-addr">
+								<span>公司名称：微go商城平台有限公司</span>&nbsp;&nbsp;&nbsp;&nbsp; <span>地址：厦门市思明区某海海底B座十层</span>&nbsp;&nbsp;&nbsp;&nbsp;
+								<span>电话：0250-2501250</span>
+							</p>
+							<div class="footer-clr"></div>
+						</div>
+					</div>
+					<!-- //footer -->
 
-					</div>
-
-				</div>
-				<!--底部-->
-				<div class="footer">
-					<div class="footer-hd">
-						<p>
-							<a href="#">恒望科技</a>
-							<b>|</b>
-							<a href="#">商城首页</a>
-							<b>|</b>
-							<a href="#">支付宝</a>
-							<b>|</b>
-							<a href="#">物流</a>
-						</p>
-					</div>
-					<div class="footer-bd">
-						<p>
-							<a href="#">关于恒望</a>
-							<a href="#">合作伙伴</a>
-							<a href="#">联系我们</a>
-							<a href="#">网站地图</a>
-							<em>© 2015-2025 Hengwang.com 版权所有. 更多模板 <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></em>
-						</p>
-					</div>
-				</div>
+				
 			</div>
-
+			</div>
 			<aside class="menu">
-				<ul>
+					<ul>
 					<li class="person active">
 						<a href="index.html"><i class="am-icon-user"></i>个人中心</a>
 					</li>
-					
-				
 					<li class="person">
 						<p><i class="am-icon-newspaper-o"></i>个人资料</p>
 						<ul>
-							<li> <a href="information-sale.html">个人信息</a></li>
-							<li> <a href="safety.html">安全设置</a></li>
+							<li> <a href="information.html">个人信息</a></li>
+							<li> <a href="password.html">密码修改</a></li>
 							<li> <a href="address.html">地址管理</a></li>
 							<!--<li> <a href="cardlist.html">快捷支付</a></li>-->
 						</ul>
 					</li>
-					
 					<li class="person">
 						<p><i class="am-icon-balance-scale"></i>我的店铺</p>
 						<ul>
@@ -326,24 +611,22 @@
 							
 						</ul>
 					</li>
-					
-					
 					<li class="person">
 						<p><i class="am-icon-balance-scale"></i>我的交易</p>
 						<ul>
 							<li><a href="order.html">订单管理</a></li>
-							<li> <a href="change.html">退款售后</a></li>
+							
 							<li> <a href="comment.html">评价商品</a></li>
 						</ul>
 					</li>
 					<li class="person">
 						<p><i class="am-icon-dollar"></i>我的资产</p>
 						<ul>
-							<li> <a href="points.html">我的积分</a></li>
+							
 							<!--<li> <a href="coupon.html">优惠券 </a></li>
 							<li> <a href="bonus.html">红包</a></li>-->
-							<li> <a href="walletlist.html">账户余额</a></li>
-							<li> <a href="bill.html">账单明细</a></li>
+							<li> <a href="wallet.html">我的钱包</a></li>
+							<!--<li> <a href="bill.html">账单明细</a></li>-->
 						</ul>
 					</li>
 
@@ -354,17 +637,14 @@
 							<li> <a href="foot.html">足迹</a></li>														
 						</ul>
 					</li>-->
+					
 
-					<li class="person">
-						<p><i class="am-icon-qq"></i>在线客服</p>
-						<ul>
-							<li> <a href="consultation.html">商品咨询</a></li>
-							<li> <a href="suggest.html">意见反馈</a></li>							
-							
-							<li> <a href="news.html">我的消息</a></li>
-						</ul>
-					</li>
+					
 				</ul>
+					
+					
+					
+					
 
 			</aside>
 		</div>

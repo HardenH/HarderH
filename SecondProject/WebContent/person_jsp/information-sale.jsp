@@ -296,7 +296,7 @@
 					<li class="person">
 						<p><i class="am-icon-balance-scale"></i>我的交易</p>
 						<ul>
-							<li><a href="order.html">订单管理</a></li>
+							<li><a href="${path}order-sale.jsp">订单管理</a></li>
 							
 							<li> <a href="comment.html">评价商品</a></li>
 						</ul>

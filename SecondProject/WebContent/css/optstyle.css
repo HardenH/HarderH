@@ -22,6 +22,7 @@ input{font-size:12px;font-size:100%;outline:none;line-height:normal;color:#444;}
 .theme-span{width:100%;background:transparent;height: 15px;}
 .theme-popbod.dform{background:#fff;}
 /*商品信息*/
+.order-left ul{position:relative;}
 .heme-signin{position:relative;}
 .theme-signin-right {background:#fff;overflow: visible;}
 .theme-signin-right .img-info{position: absolute;top:0;left:10px;background:#fff;border-radius:5px;border:1px solid #f5f5f5;}
@@ -89,6 +90,7 @@ i.theme-login{display: inline-block;}
  
  	
  }
+ 
 
 
 

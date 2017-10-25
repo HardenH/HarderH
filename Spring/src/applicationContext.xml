@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+<bean id="p" class="com.entity.Preson" >
+<property name="name" value="小二"/>
+</bean>
+<bean id="p1" class="com.entity.Preson" >
+<property name="name" value="小萨"/>
+</bean>
+<bean id="p2" class="com.entity.Preson" >
+<property name="name" value="小思"/>
+</bean>
+<bean id="p3" class="com.entity.Preson" >
+<property name="name" value="小五"/>
+</bean>
+<bean id="p4" class="com.entity.Preson" >
+<property name="name" value="小六"/>
+</bean>
+<bean id="GG" class="com.entity.Girls" >
+<property name="name" value="小花"/>
+<property name="bb">
+<list>
+<ref bean="p"></ref>
+<ref bean="p1"></ref>
+<ref bean="p2"></ref>
+<ref bean="p3"></ref>
+<ref bean="p4"></ref>
+</list>
+</property>
+</bean>
+</beans>

@@ -1,0 +1,36 @@
+<!Doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>使用说明</title>
+<link rel="stylesheet" href="lib/style.css">
+</head>
+<body>
+ <h3>通配符</h3>
+ <p>通配符有：* $ ? [Y] [y] [M] [m] [D] [d]</p>
+ <p>通配符说明： </p>
+ <p>
+ *代表小字 </p>
+ <p>$代表大写字 </p>
+ <p>?代表数字 </p>
+ <p>[Y] 四位数年份：2008、2012</p>
+ <p>[y] 四位数年份：08、12</p>
+ <p>[M] 前面补0月份：01、02、08、11</p>
+ <p>[m] 前面不补0月份：1、2、8、11、10 </p>
+ <p>[D] 前面补0天数：05、11、25、30</p>
+ <p>[d] 前面不补0天数：5、11、25、30</p>
+<p>&nbsp;</p>
+<h3>格式演示</h3>
+<p>字符类<br>
+  <br>
+  <span class="c5">$$</span>????????&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c5">PK</span>12345678 、 <span class="c5">FH</span>87654321<br>
+  <span class="c1">**</span>????????&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c1">ad</span>1235678 、 <span class="c1">xr</span>87654321<br>
+  19870<span class="c6">?</span>1<span class="c6">?</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;19870<span class="c6">2</span>1<span class="c6">3</span>、19870<span class="c6">5</span>1<span class="c6">9</span><br>
+<span class="c2">????</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c2">2370</span>、<span class="c2">8242</span></p>
+<p>日期类</p>
+<p><span class="c1">[y]</span><span class="c2">[m]</span><span class="c5">[d</span><span class="c3">]????</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c1">12</span><span class="c2">6</span><span class="c5">1</span><span class="c3">6532</span>、<span class="c1">12</span><span class="c2">6</span><span class="c5">9<span class="c3">8728</span></span>、<span class="c1">12</span><span class="c2">6</span><span class="c5">15</span><span class="c3">2357</span></p>
+<p><span class="c1"> [Y]</span><span class="c2">[M]</span><span class="c5">[D]</span><span class="c3">????</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c1">2012</span><span class="c2">06</span><span class="c5">01</span><span class="c3">6532</span>、<span class="c1">2012</span><span class="c2">06</span><span class="c5">09</span><span class="c3">8728</span>、<span class="c1">2012</span><span class="c2">06</span><span class="c5">15</span><span class="c3">2357</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>

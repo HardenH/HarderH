@@ -1,0 +1,76 @@
+<!Doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>随机生成器</title>
+<link rel="stylesheet" href="lib/style.css">
+</head>
+<body>
+<!--第一组-->
+<fieldset id="group1">
+  <legend>选择性生成</legend>
+  <form name="myform" id="myform">
+    <div class="l">
+      <div class="option">
+        <input checked id="c1" name="c" type="radio" value="1">
+        <label for="c1"> 小写</label>
+        <input name="c" id="c2" type="radio" value="2">
+        <label for="c2"> 大写</label>
+      </div>
+      <div class="option">
+        <input checked name="t"  id="t1" type="radio" value="1">
+        <label for="t1"> 数字</label>
+        <input name="t" id="t2"  type="radio" value="2">
+        <label for="t2"> 英文</label>
+      </div>
+      <div class="option">字符：
+        <input id="txt" name="txt" type="text" value="5">
+        个 </div>
+      <div class="option">生成：
+        <input id="count" name="count" type="text" value="1">
+        组 </div>
+    </div>
+    <div class="r">
+      <input id="btn1"  class="button" value="生成"   type="button">
+    </div>
+    <textarea name="result" id="result" > </textarea>
+  </form>
+</fieldset>
+<!--第二组-->
+<fieldset id="group2">
+  <legend>格式生成</legend>
+  <form name="myform2" id="myform2"  >
+    <div class="l">
+    <div class="option">
+    
+    </div>
+      <div class="option">
+      <table><tr><td>格式：
+     <select name="gslist" id="gslist"  >
+      <option value="">格式</option>
+     <option value="[Y][M][D]????">订单1</option>
+     <option value="[Y][M][D]??????">订单2</option>
+     <option value="??????">密码LV1</option>
+     <option value="**????">密码LV2</option>
+     <option value="$$??????">密码LV3</option>
+     </select>
+     </td><td> 
+        <input name="geshi" type="text" class="ipt" id="geshi" style="width:182px; text-align:left" value=""></td></tr></table>
+      
+      
+        <span class="jieshi">*代表小字 $代表大写字 ?代表数字 <a href="http://1.portals.sinaapp.com/help.html" target="_blank">更多</a></span> <br>
+        <span class="jieshi"> </span> </div>
+      <div style="height:10px;"></div>
+      <div class="option"> 生成：
+        <input id="count2"  class="ipt"  name="count2" type="text" value="1">
+        组 </div>
+    </div>
+    <div class="r">
+      <input id="btn2"  class="button" value="生成"   type="button">
+    </div>
+    <textarea name="result2" id="result2" > </textarea>
+  </form>
+</fieldset>
+<script type="text/javascript" src="lib/script.js"></script>
+</body>
+</html>

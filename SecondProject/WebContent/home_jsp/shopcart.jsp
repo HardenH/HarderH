@@ -333,7 +333,10 @@
    	window.location.href='pay.html';
    });
    
-		})
+});
+		
+		
+		
 	</script>
 	<body>
 
@@ -342,8 +345,9 @@
 			<ul class="message-l">
 				<div class="topMessage">
 					<div class="menu-hd">
-						<a href="#" target="_top" class="h">亲，请登录</a>
-						<a href="#" target="_top">免费注册</a>
+						<a href="login.html" target="_top" class="h">亲，请登录</a>
+						<a href="register.html" target="_top" class="h">免费注册</a>
+						<a id="wel_user" target="_top">欢迎，${sessionScope.user}</a>
 					</div>
 				</div>
 			</ul>
@@ -516,5 +520,19 @@
 
 		
 	</body>
+	
+	<script type="text/javascript">
+		//顶部导航栏 欢迎
+		$(function() {
+			$(document).ready(function(){
+				var uName = $("#user").val;
+				//先判断用户是否登录了
+				if(uName != ""){
+					//将请登录 注册移除
+					$(".h").remove();
+				}
+			});
+		});
+	</script>
 
 </html>
