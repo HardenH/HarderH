@@ -27,8 +27,14 @@
 <link href="${path}css/skin.css" rel="stylesheet" type="text/css" />
 <script src="${path}AmazeUI-2.4.2/assets/js/amazeui.min.js"></script>
 <script type="text/javascript">
+
+		/* 加载头部导航栏  底部版权信息 */
 		$(function(){
-			
+			$("#myHeader").load("myHome.jsp");
+		});
+		
+		
+		$(function(){
 			/*分类显示开始*/
 			//服装
 			$.get("${path}Goodsservlet",{"op":"searchbycloth"},function(mydata,status){
@@ -120,11 +126,7 @@
 				})
 				})
 			})
-			/* 加载头部导航栏  底部版权信息 */
-			$(function(){
-				$(".am-container").load("myHome.jsp");
-				//$(".footer").load("myFoot.jsp");
-			});		
+				
 		</script>
 		
 
@@ -133,7 +135,7 @@
 <body>
 	<div class="hmtop">
 		<!--顶部导航条 -->
-		<div class="am-container header">
+		<div class="am-container header" id="myHeader">
 			<%-- <ul class="message-l">
 				<div class="topMessage">
 					<div class="menu-hd">
@@ -1844,9 +1846,5 @@
 		</script>
 			<script type="text/javascript " src="../basic/js/quick_links.js "></script>
 </body>
-<script type="text/javascript">
-
-
-</script>
 
 </html>
