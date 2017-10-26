@@ -53,7 +53,7 @@
 					<div class="menu-hd">
 						<!-- 跳转到开店页面 -->
 						<a href="${path}home_jsp/apply1.jsp" target="_top" id="openStore">免费开店</a> 
-						<a href="#" target="_top" id="myStore" value="${sessionScope.user}">我的店铺</a>
+						<a href="${path}person_jsp/information-sale.jsp" target="_top" id="myStore" value="${sessionScope.user}">我的店铺</a>
 					</div>
 				</div>
 				<div class="topMessage my-shangcheng">
@@ -65,10 +65,10 @@
 				</div>
 				<div class="topMessage mini-cart">
 					<div class="menu-hd">
-						<a id="mc-menu-hd" href="#" target="_top"> 
-							<i class="am-icon-shopping-cart  am-icon-fw"></i> 
-							<span>购物车</span> 
-							<strong id="J_MiniCartNum" class="h">0</strong>
+						<a id="mc-menu-hd" href="#" target="_top">
+							<i class="am-icon-shopping-cart  am-icon-fw"> </i>
+							<span>购物车</span>
+							<strong id="J_MiniCartNum" class="h">${sessionScope.buyCount}</strong>
 						</a>
 					</div>
 				</div>
