@@ -1,26 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+	String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getLocalPort()
+			+ request.getContextPath() + "/";
+	pageContext.setAttribute("path", path);
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Home</title>
+<title>Yummy Home</title>
 <!-- Custom Theme files -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //Custom Theme files -->
-<link href="../css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
-<link href="../css/style3.css" type="text/css" rel="stylesheet" media="all">
-<link rel="stylesheet" href="../css/amazeui.css" />
+<link href="${path}css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+<link href="${path}css/style3.css" type="text/css" rel="stylesheet" media="all">
+<link rel="stylesheet" href="${path}css/amazeui.css" />
 <!-- js -->
-<script src="../js/jquery.min.js"></script>
-<script type="text/javascript" src="../js/bootstrap-3.1.1.min.js"></script>
+<script src="${path}js/jquery.min.js"></script>
+<script type="text/javascript" src="${path}js/bootstrap-3.1.1.min.js"></script>
 <!-- //js -->	
 <!-- cart -->
-<script src="../js/simpleCart.min.js"> </script>
+<script src="${path}js/simpleCart.min.js"> </script>
 <!-- cart -->
+
+<!-- 登录 -->
+<script src="${path}js/login.js"></script>
+
 </head>
+
+<script type="text/javascript">
+	/* 加载头部导航栏  底部版权信息 */
+	$(function(){
+		$(".am-container").load("myHome.jsp");
+	});
+</script>
+
 <body>
 	<!--头 -->
 		<header>
@@ -28,7 +46,7 @@
 				<div class="mt-logo">
 					<!--顶部导航条 -->
 					<div class="am-container">
-						<div class="">
+						<!-- <div class="">
 							<ul class="message-l">
 							<div class="topMessage">
 								<div class="menu-hd">
@@ -41,20 +59,20 @@
 						
 						<div class="">
 							<ul class="message-r">
-							<div class="topMessage home">
-								<div class="menu-hd"><a href="#" target="_top" class="h">商城首页</a></div>
-							</div>
-							<div class="topMessage my-shangcheng">
-								<div class="menu-hd MyShangcheng"><a href="#" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
-							</div>
-							<div class="topMessage mini-cart">
-								<div class="menu-hd"><a id="mc-menu-hd" href="#" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span><strong id="J_MiniCartNum" class="h">0</strong></a></div>
-							</div>
-							<div class="topMessage favorite">
-								<div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
-						</ul>
-						</div>
-						</div>
+								<div class="topMessage home">
+									<div class="menu-hd"><a href="#" target="_top" class="h">商城首页</a></div>
+								</div>
+								<div class="topMessage my-shangcheng">
+									<div class="menu-hd MyShangcheng"><a href="#" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
+								</div>
+								<div class="topMessage mini-cart">
+									<div class="menu-hd"><a id="mc-menu-hd" href="#" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span><strong id="J_MiniCartNum" class="h">0</strong></a></div>
+								</div>
+								<div class="topMessage favorite">
+									<div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
+							</ul>
+						</div> -->
+					</div>
 						</div>
 
 						<!--悬浮搜索框-->
@@ -63,7 +81,7 @@
 							<div class="row">
 								<div class="col-md-4">
 									<div class="logoBig">
-										<li><img src="../images/logod1.png"/></li>
+										<li><img src="${path}images/logod1.png"/></li>
 									</div>
 								</div>
 								
@@ -297,7 +315,7 @@
 		<div class="container">
 			<div class="gallery-grids">
 				<div class="col-md-8 gallery-grid glry-one">
-					<a href="cake_products.html"><img src="../images/g1.jpg" class="img-responsive" alt=""/>
+					<a href="cake_products.html"><img src="${path}images/g1.jpg" class="img-responsive" alt=""/>
 						<div class="gallery-info">
 							<p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>快点我吧</p>
 							<a class="shop" href="single.html">立即抢购</a>
@@ -326,7 +344,7 @@
 					</div>
 				</div>
 				<div class="col-md-4 gallery-grid glry-two">
-					<a href="cake_products.html"><img src="../images/g2.jpg" class="img-responsive" alt=""/>
+					<a href="cake_products.html"><img src="${path}images/g2.jpg" class="img-responsive" alt=""/>
 						<div class="gallery-info galrr-info-two">
 							<p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>快点我吧</p>
 							<a class="shop" href="single.html">立即抢购</a>
@@ -351,7 +369,7 @@
 					</div>
 				</div>
 				<div class="col-md-3 gallery-grid ">
-					<a href="cake_products.html"><img src="../images/g3.png" class="img-responsive" alt=""/>
+					<a href="cake_products.html"><img src="${path}images/g3.png" class="img-responsive" alt=""/>
 						<div class="gallery-info">
 							<p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>快点我吧</p>
 							<a class="shop" href="single.html">立即抢购</a>
@@ -376,7 +394,7 @@
 					</div>
 				</div>
 				<div class="col-md-3 gallery-grid ">
-					<a href="cake_products.html"><img src="../images/g4.png" class="img-responsive" alt=""/>
+					<a href="cake_products.html"><img src="${path}images/g4.png" class="img-responsive" alt=""/>
 						<div class="gallery-info">
 							<p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>快点我吧</p>
 							<a class="shop" href="single.html">立即抢购</a>
@@ -401,7 +419,7 @@
 					</div>
 				</div>
 				<div class="col-md-3 gallery-grid ">
-					<a href="cake_products.html"><img src="../images/g5.png" class="img-responsive" alt=""/>
+					<a href="cake_products.html"><img src="${path}images/g5.png" class="img-responsive" alt=""/>
 						<div class="gallery-info">
 							<p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>快点我吧</p>
 							<a class="shop" href="single.html">立即抢购</a>
@@ -426,7 +444,7 @@
 					</div>
 				</div>
 				<div class="col-md-3 gallery-grid ">
-					<a href="cake_products.html"><img src="../images/g6.png" class="img-responsive" alt=""/>
+					<a href="cake_products.html"><img src="${path}images/g6.png" class="img-responsive" alt=""/>
 						<div class="gallery-info">
 							<p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>快点我吧</p>
 							<a class="shop" href="single.html">立即抢购</a>
@@ -451,7 +469,7 @@
 					</div>
 				</div>
 				<div class="col-md-3 gallery-grid ">
-					<a href="cake_products.html"><img src="../images/g7.png" class="img-responsive" alt=""/>
+					<a href="cake_products.html"><img src="${path}images/g7.png" class="img-responsive" alt=""/>
 						<div class="gallery-info">
 							<p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>快点我吧</p>
 							<a class="shop" href="single.html">立即抢购</a>
@@ -476,7 +494,7 @@
 					</div>
 				</div>
 				<div class="col-md-3 gallery-grid ">
-					<a href="cake_products.html"><img src="../images/g8.png" class="img-responsive" alt=""/>
+					<a href="cake_products.html"><img src="${path}images/g8.png" class="img-responsive" alt=""/>
 						<div class="gallery-info">
 							<p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>快点我吧</p>
 							<a class="shop" href="single.html">立即抢购</a>
@@ -501,7 +519,7 @@
 					</div>
 				</div>
 				<div class="col-md-3 gallery-grid ">
-					<a href="cake_products.html"><img src="../images/g9.png" class="img-responsive" alt=""/>
+					<a href="cake_products.html"><img src="${path}images/g9.png" class="img-responsive" alt=""/>
 						<div class="gallery-info">
 							<p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>快点我吧</p>
 							<a class="shop" href="single.html">立即抢购</a>
@@ -526,7 +544,7 @@
 					</div>
 				</div>
 				<div class="col-md-3 gallery-grid ">
-					<a href="cake_products.html"><img src="../images/g10.png" class="img-responsive" alt=""/>
+					<a href="cake_products.html"><img src="${path}images/g10.png" class="img-responsive" alt=""/>
 						<div class="gallery-info">
 							<p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>快点我吧</p>
 							<a class="shop" href="single.html">立即抢购</a>

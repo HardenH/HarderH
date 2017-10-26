@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+	String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getLocalPort()
+			+ request.getContextPath() + "/";
+	pageContext.setAttribute("path", path);
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,26 +18,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
-<link href="../css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="../css/style4.css" rel="stylesheet" type="text/css" media="all" />
+<link href="${path}css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="${path}css/style4.css" rel="stylesheet" type="text/css" media="all" />
 <!-- js -->
-<script src="../js/jquery.min.js"></script>
+<script src="${path}js/jquery.min.js"></script>
 <!-- //js -->
 <!-- for bootstrap working -->
 <script type="text/javascript" src="../js/bootstrap-3.1.1.min.js"></script>
 <!-- //for bootstrap working -->
 <!-- animation-effect -->
-<link href="../css/animate.min.css" rel="stylesheet"> 
-<script src="../js/wow.min.js"></script>
+<link href="${path}css/animate.min.css" rel="stylesheet"> 
+<script src="${path}js/wow.min.js"></script>
 <script>
  new WOW().init();
 </script>
 <!-- //animation-effect -->
-<link rel="stylesheet" href="../css/amazeui.css" />
+<link rel="stylesheet" href="${path}css/amazeui.css" />
 <link href='//fonts.googleapis.com/css?family=Cabin:400,500,600,700' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
 </head>
-	
+
+<script type="text/javascript">
+	/* 加载头部导航栏  底部版权信息 */
+	$(function(){
+		$(".am-container").load("myHome.jsp");
+	});
+</script>
+
 <body>
 	<!--头 -->
 		<header>
@@ -39,7 +52,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="mt-logo">
 					<!--顶部导航条 -->
 					<div class="am-container">
-						<div class="">
+						<!-- <div class="">
 							<ul class="message-l">
 							<div class="topMessage">
 								<div class="menu-hd">
@@ -64,7 +77,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div class="topMessage favorite">
 								<div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
 						</ul>
-						</div>
+						</div> -->
 						</div>
 						</div>
 
